@@ -5,6 +5,9 @@ const Navbar = () => {
     const nanItems=<>
     <li><NavLink to='/'>Home</NavLink></li>
     <li><NavLink to='/about'>About</NavLink></li>
+    <li><NavLink to='/coverage'>Coverage</NavLink></li>
+    <li><NavLink to='/authLayout/login'>Login</NavLink></li>
+    <li><NavLink to='/authLayout/register'>Register</NavLink></li>
     </>
     return (
         <div className="navbar bg-base-100 shadow-sm">
