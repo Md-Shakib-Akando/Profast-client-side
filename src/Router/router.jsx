@@ -23,7 +23,7 @@ export const router = createBrowserRouter([
         path:'about',Component:About,
     },
     {
-      path:'coverage', loader: () => fetch('./serviceCenter.json'), Component:Coverage,
+      path:'coverage', loader: () => fetch('./serviceCenters.json'), Component:Coverage,
     }
    ]
   },
