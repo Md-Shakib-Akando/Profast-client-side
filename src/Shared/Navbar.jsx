@@ -1,14 +1,33 @@
 import React from 'react';
 import { NavLink } from 'react-router';
+import UseAuth from '../UseAuth';
 
 const Navbar = () => {
-    const nanItems=<>
-    <li><NavLink to='/'>Home</NavLink></li>
-    <li><NavLink to='/about'>About</NavLink></li>
-    <li><NavLink to='/coverage'>Coverage</NavLink></li>
-    <li><NavLink to='/sendParcel'>Send Parcel</NavLink></li>
-    <li><NavLink to='/authLayout/login'>Login</NavLink></li>
-    <li><NavLink to='/authLayout/register'>Register</NavLink></li>
+    const { user } = UseAuth();
+
+    const nanItems = <>
+        <li><NavLink to='/'>Home</NavLink></li>
+        <li><NavLink to='/about'>About</NavLink></li>
+        <li><NavLink to='/coverage'>Coverage</NavLink></li>
+        <li><NavLink to='/sendParcel'>Send Parcel</NavLink></li>
+        {
+            user && <>
+                <li><NavLink to='/dashboard'>Dash Board</NavLink></li>
+            </>
+        }
+        {
+            user ? (
+                <>
+                    <li><NavLink >logOut</NavLink></li>
+
+                </>
+            ) : (
+                <>
+                    <li><NavLink to='/login'>Login</NavLink></li>
+                    <li><NavLink to='/register'>Register</NavLink></li>
+                </>
+            )
+        }
     </>
     return (
         <div className="navbar bg-base-100 shadow-sm">
