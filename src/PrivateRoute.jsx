@@ -1,14 +1,16 @@
 import React from 'react';
 import UseAuth from './UseAuth';
-import { Navigate } from 'react-router';
+import { Navigate, useLocation } from 'react-router';
 
-const PrivateRoute = ({children}) => {
-    const {user,loading}=UseAuth();
-    if(loading){
+const PrivateRoute = ({ children }) => {
+    const { user, loading } = UseAuth();
+    const location = useLocation();
+
+    if (loading) {
         return <span className="loading loading-spinner loading-xl"></span>
     }
-    if(!user){
-        return <Navigate to='/authLayout/login'></Navigate>
+    if (!user) {
+        return <Navigate state={{ from: location.pathname }} to='/login'></Navigate>
     }
     return children;
 };

@@ -1,9 +1,24 @@
 import React from 'react';
-import { NavLink } from 'react-router';
+import { NavLink, useNavigate } from 'react-router';
 import UseAuth from '../UseAuth';
 
 const Navbar = () => {
-    const { user } = UseAuth();
+    const { user, logOut } = UseAuth();
+
+    const navigate = useNavigate();
+
+
+    const handleLogOut = () => {
+        logOut()
+            .then(() => {
+                console.log('Logged out');
+                // Optionally redirect
+                navigate('/login');
+            })
+            .catch(err => {
+                console.error('Logout failed', err);
+            });
+    };
 
     const nanItems = <>
         <li><NavLink to='/'>Home</NavLink></li>
@@ -15,19 +30,7 @@ const Navbar = () => {
                 <li><NavLink to='/dashboard'>Dash Board</NavLink></li>
             </>
         }
-        {
-            user ? (
-                <>
-                    <li><NavLink >logOut</NavLink></li>
 
-                </>
-            ) : (
-                <>
-                    <li><NavLink to='/login'>Login</NavLink></li>
-                    <li><NavLink to='/register'>Register</NavLink></li>
-                </>
-            )
-        }
     </>
     return (
         <div className="navbar bg-base-100 shadow-sm">
@@ -50,7 +53,23 @@ const Navbar = () => {
                 </ul>
             </div>
             <div className="navbar-end">
-                <a className="btn">Button</a>
+                {
+                    user ? (
+                        <>
+
+                            <button onClick={handleLogOut} className='btn'><NavLink >logOut</NavLink></button>
+
+                        </>
+                    ) : (
+                        <>
+                            <div className='space-x-2'>
+                                <button className='btn'><NavLink to='/login'>Login</NavLink></button>
+                                <button className='btn'><NavLink to='/register'>Register</NavLink></button>
+                            </div>
+
+                        </>
+                    )
+                }
             </div>
         </div>
     );
